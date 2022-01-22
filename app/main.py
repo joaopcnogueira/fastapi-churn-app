@@ -13,6 +13,9 @@ from .database import engine, get_db
 
 BASE_DIR = Path('.')
 models.Base.metadata.create_all(bind=engine)
+
+
+
 app = FastAPI()
 
 
