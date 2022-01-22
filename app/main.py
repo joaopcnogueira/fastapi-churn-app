@@ -9,18 +9,18 @@ from datetime import datetime
 
 from . import models, schemas
 from .database import engine, get_db
+from fastapi.security import OAuth2PasswordBearer
 
 
 BASE_DIR = Path('.')
 models.Base.metadata.create_all(bind=engine)
-
-
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
 
 @app.post("/predict", response_model=schemas.CustomerResponse)
-def predict(customer: schemas.Customer, db: Session = Depends(get_db)):
+def predict(customer: schemas.Customer, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     
     customer_dict = customer.dict()
     customer_df = pd.DataFrame([customer_dict])
@@ -39,7 +39,7 @@ def predict(customer: schemas.Customer, db: Session = Depends(get_db)):
 
 
 @app.get("/predictions", response_model=List[schemas.Prediction])
-def get_predictions(db: Session = Depends(get_db)):
+def get_predictions(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     predictions = db.query(models.Prediction).all()
 
     return predictions
