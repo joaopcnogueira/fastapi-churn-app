@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
 class Customer(BaseModel):
@@ -24,6 +24,19 @@ class Prediction(BaseModel):
     receita_12m: float
     recencia: int
     churn_probability: float
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+class User(BaseModel):
+    id: int
+    email: EmailStr
     created_at: datetime
 
     class Config:

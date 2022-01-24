@@ -2,12 +2,12 @@ import joblib
 import pandas as pd
 from pathlib import Path
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
 from datetime import datetime
 
-from . import models, schemas
+from . import models, schemas, utils
 from .database import engine, get_db
 from fastapi.security import OAuth2PasswordBearer
 
@@ -43,3 +43,24 @@ def get_predictions(db: Session = Depends(get_db), token: str = Depends(oauth2_s
     predictions = db.query(models.Prediction).all()
 
     return predictions
+
+
+
+@app.post("/users", status_code=status.HTTP_201_CREATED, response_model=schemas.User)
+def create_users(user: schemas.UserCreate, db: Session = Depends(get_db)):
+
+    user.password = utils.hash(user.password)
+
+    new_user = models.User(**user.dict())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return new_user
+
+
+@app.get("/users", response_model=List[schemas.User])
+def get_users(db: Session = Depends(get_db)):
+    user = db.query(models.User).all()
+
+    return user

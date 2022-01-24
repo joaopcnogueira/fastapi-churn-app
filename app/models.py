@@ -4,13 +4,6 @@ from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 
-class User(Base):
-    __tablename__ = "users"
-
-    id   = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String, nullable=False)
-
-
 class Prediction(Base):
     __tablename__ = "predictions"
 
@@ -23,3 +16,12 @@ class Prediction(Base):
     recencia           = Column(Integer, nullable=False)
     churn_probability  = Column(Numeric, nullable=False)
     created_at         = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id   = Column(Integer, primary_key=True, nullable=False)
+    email = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
