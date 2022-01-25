@@ -1,4 +1,4 @@
-POST http://localhost:8000/predict HTTP/1.1
+POST http://localhost:8001/predictions HTTP/1.1
 content-type: application/json
 
 {
