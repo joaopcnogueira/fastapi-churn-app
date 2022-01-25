@@ -1,0 +1,1 @@
+GET http://localhost:8001/predictions HTTP/1.1
