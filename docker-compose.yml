@@ -1,4 +1,5 @@
 # Use postgres/example user/password credentials
+# docker-compose --env-file ./.env up
 version: '3.1'
 
 services:
@@ -6,9 +7,9 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: churndb
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_DATABASE}"
     ports:
       - 5432:5432
 

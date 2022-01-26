@@ -2,6 +2,6 @@ POST http://localhost:8000/users HTTP/1.1
 content-type: application/json
 
 {
-    "email": "denise@gmail.com",
+    "email": "joao@fisica.ufc.br",
     "password": "qwert"
 }

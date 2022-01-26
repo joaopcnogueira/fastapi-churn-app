@@ -2,7 +2,7 @@ POST http://localhost:8000/predictions HTTP/1.1
 content-type: application/json
 
 {
-    "uf": "CE",
+    "uf": "MA",
     "tot_orders_12m": 5,
     "tot_items_12m": 3,
     "tot_items_dist_12m": 1,

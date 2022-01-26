@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
-SQLALCHEMY_DATABASE_URL = config['SQLALCHEMY_DATABASE_URL']
+SQLALCHEMY_DATABASE_URL = f"postgresql://{config['DB_USER']}:{config['DB_PASSWORD']}@localhost/{config['DB_DATABASE']}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
