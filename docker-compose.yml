@@ -1,4 +1,3 @@
-# Use postgres/example user/password credentials
 # docker-compose --env-file ./.env up
 version: '3.1'
 
